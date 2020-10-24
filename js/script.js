@@ -23,8 +23,7 @@ class UI {
     <td><a href='#' class="delete">X</a></td>`;
 
     list.appendChild(row);
-    console.log(row);
-  }
+    
   clearFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
