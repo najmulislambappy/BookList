@@ -13,9 +13,9 @@ class Book {
 //UI class
 class UI {
   constructor() {}
-  addToBookllist(book) {
+  addToBooklist(book) {
     let list = document.querySelector('#book-list');
-    let row = document.querySelector('tr');
+    let row = document.createElement('tr');
     row.innerHTML = `
     <td>${book.title}</td>
     <td>${book.author}</td>
@@ -23,7 +23,7 @@ class UI {
     <td><a href='#' class="delete">X</a></td>`;
 
     list.appendChild(row);
-    
+  }
   clearFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
@@ -38,6 +38,7 @@ form.addEventListener('submit', newBook);
 //Define function
 
 function newBook(e) {
+  e.preventDefault();
   let title = document.querySelector('#title').value,
     author = document.querySelector('#author').value,
     isbn = document.querySelector('#isbn').value;
@@ -45,8 +46,6 @@ function newBook(e) {
   let book = new Book(title, author, isbn);
 
   let ui = new UI();
-  ui.addToBookllist(book);
+  ui.addToBooklist(book);
   ui.clearFields();
-
-  e.preventDefault();
 }
