@@ -1,5 +1,6 @@
 // get the UI element
 let form = document.querySelector('#book-form');
+let booklist = document.querySelector('#book-list');
 
 //Book class
 class Book {
@@ -12,8 +13,7 @@ class Book {
 
 //UI class
 class UI {
-  constructor() {}
-  addToBooklist(book) {
+  static addToBooklist(book) {
     let list = document.querySelector('#book-list');
     let row = document.createElement('tr');
     row.innerHTML = `
@@ -24,13 +24,13 @@ class UI {
 
     list.appendChild(row);
   }
-  clearFields() {
+  static clearFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
     document.querySelector('#isbn').value = '';
   }
 
-  showAlert(message, className) {
+  static showAlert(message, className) {
     let div = document.createElement('div');
     div.className = `alart ${className}`;
     div.appendChild(document.createTextNode(message));
@@ -42,11 +42,18 @@ class UI {
       document.querySelector('.alart').remove();
     }, 3000);
   }
+  static deleteFromBook(target) {
+    if (target.hasAttribute('href')) {
+      target.parentElement.parentElement.remove();
+      UI.showAlert('Book removed!', 'success');
+    }
+  }
 }
 
 // Add Event Listener
 
 form.addEventListener('submit', newBook);
+booklist.addEventListener('click', removeBook);
 
 //Define function
 
@@ -56,16 +63,18 @@ function newBook(e) {
     author = document.querySelector('#author').value,
     isbn = document.querySelector('#isbn').value;
 
-  let ui = new UI();
-
   if (title === '' || author === '' || isbn === '') {
-    ui.showAlert('Plese fill all the fields! ', 'error');
+    UI.showAlert('Plese fill all the fields! ', 'error');
   } else {
     let book = new Book(title, author, isbn);
 
-    let ui = new UI();
-    ui.addToBooklist(book);
-    ui.clearFields();
-    ui.showAlert('Book added ', 'success');
+    UI.clearFields();
+    UI.showAlert('Book added ', 'success');
+    UI.addToBooklist(book);
   }
+}
+function removeBook(e) {
+  UI.deleteFromBook(e.target);
+
+  e.preventDefault();
 }
