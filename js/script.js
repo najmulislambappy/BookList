@@ -1,4 +1,5 @@
 // get the UI element
+
 let form = document.querySelector('#book-form');
 let booklist = document.querySelector('#book-list');
 
@@ -12,6 +13,7 @@ class Book {
 }
 
 //UI class
+
 class UI {
   static addToBooklist(book) {
     let list = document.querySelector('#book-list');
@@ -52,7 +54,9 @@ class UI {
     }
   }
 }
+
 // Local Storeg class
+
 class Store {
   static getBooks() {
     let books;
